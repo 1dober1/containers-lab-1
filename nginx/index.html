@@ -13,6 +13,8 @@
             padding: 20px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
+            min-height: 100vh;
+            background-attachment: fixed;
         }
 
         .container {
@@ -89,7 +91,7 @@
 
 <body>
     <div class="container">
-        <h1>Docker Multi-Container Application</h1>
+        <h1>🐳 Docker Multi-Container Application</h1>
         <p>Это приложение демонстрирует работу с Docker контейнерами:
             <span class="badge">Go Backend</span>
             <span class="badge">PostgreSQL</span>
@@ -147,21 +149,18 @@
             document.getElementById('userName').value = '';
             loadUsers();
         });
-
         async function deleteUser(id) {
             if (confirm('Удалить пользователя?')) {
                 await fetch(`/api/users/${id}`, { method: 'DELETE' });
                 loadUsers();
             }
         }
-
         async function getContainerInfo() {
             const response = await fetch('/api/health');
             const data = await response.json();
             document.getElementById('containerInfo').textContent =
                 `Статус: ${data.status}\nХост: ${window.location.hostname}\nВремя: ${new Date().toLocaleString()}`;
         }
-
         loadUsers();
         getContainerInfo();
         setInterval(getContainerInfo, 5000);
